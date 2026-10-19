@@ -1,7 +1,7 @@
 import express from 'express'
 import pg from 'pg'
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const { Pool } = pg
 
 app.use(express.json())
@@ -12,11 +12,11 @@ app.use(
 )
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'mahasiswa',
-    password: '', //sesuakan dengan password database masing masing
-    port: 5432,
+    user: process.env.DB_USER || 'postgres',
+    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_NAME || 'mahasiswa',
+    password: process.env.DB_PASSWORD || '', //sesuaikan di file .env
+    port: process.env.DB_PORT || 5432,
 })
 
 // GET ALL
