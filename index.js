@@ -72,6 +72,12 @@ app.post('/biodata', (req, res) => {
             data: result.rows[0]
         }))
         .catch(err => {
+            if (err.code === '23505') {
+                return res.status(409).json({
+                    message: "Data dengan id tersebut sudah ada"
+                });
+            }
+
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
